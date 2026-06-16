@@ -1,0 +1,729 @@
+<style>
+    @font-face { font-family:'Circular Std'; src:url('fonts/CircularStd-Book.woff2') format('woff2'),url('fonts/CircularStd-Book.woff') format('woff'); font-weight:400; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Circular Std'; src:url('fonts/CircularStd-BookItalic.woff2') format('woff2'),url('fonts/CircularStd-BookItalic.woff') format('woff'); font-weight:400; font-style:italic; font-display:swap; }
+    @font-face { font-family:'Circular Std'; src:url('fonts/CircularStd-Medium.woff2') format('woff2'),url('fonts/CircularStd-Medium.woff') format('woff'); font-weight:500; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Circular Std'; src:url('fonts/CircularStd-Bold.woff2') format('woff2'),url('fonts/CircularStd-Bold.woff') format('woff'); font-weight:600; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Circular Std'; src:url('fonts/CircularStd-Bold.woff2') format('woff2'),url('fonts/CircularStd-Bold.woff') format('woff'); font-weight:700; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Circular Std'; src:url('fonts/CircularStd-Black.woff2') format('woff2'),url('fonts/CircularStd-Black.woff') format('woff'); font-weight:800; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Circular Std'; src:url('fonts/CircularStd-Black.woff2') format('woff2'),url('fonts/CircularStd-Black.woff') format('woff'); font-weight:900; font-style:normal; font-display:swap; }
+    </style>
+
+
+
+<!-- Main Scoped E-Commerce Container -->
+<div class="ece-storefront">
+  
+  <!-- Announcement Bar -->
+  <div class="ece-announcement">
+    <p>Free express shipping on all orders over $500. 2-Year warranty included.</p>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="ece-navbar">
+    <div class="ece-nav-container">
+      <a href="#" class="ece-logo">NEXUS<span>WIRELESS</span></a>
+      
+      <div class="ece-nav-menu" id="eceNavMenu">
+        <a href="#" class="ece-nav-link ece-nav-link--active">Shop All</a>
+        <a href="#" class="ece-nav-link">Smartphones</a>
+        <a href="#" class="ece-nav-link">Accessories</a>
+        <a href="#" class="ece-nav-link">Enterprise Solutions</a>
+      </div>
+
+      <div class="ece-nav-actions">
+        <button class="ece-icon-btn" aria-label="Search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <button class="ece-icon-btn ece-cart-btn" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21h6M2 3h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <span class="ece-cart-count">0</span>
+        </button>
+        <button class="ece-menu-toggle" id="eceMenuToggle" aria-label="Toggle Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Interactive Showcase Banner -->
+  <header class="ece-hero">
+    <div class="ece-hero-bg">
+      <img src="https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg" alt="Premium smartphones showcase background">
+    </div>
+    <div class="ece-hero-content">
+      <span class="ece-hero-tag">Flagship Launch</span>
+      <h1 class="ece-hero-title">Next-Gen Mobility.<br>Without Compromise.</h1>
+      <p class="ece-hero-desc">Explore the new generation of iPhone and Samsung Galaxy devices bundled with professional ecosystem accessories.</p>
+      <div class="ece-hero-cta">
+        <a href="#catalog" class="ece-btn ece-btn--primary">Browse Flagships</a>
+        <a href="#" class="ece-btn ece-btn--secondary">Trade-In Value</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Store Front Grid and Filter System -->
+  <main class="ece-main-layout" id="catalog">
+    <div class="ece-layout-container">
+      
+      <!-- Filter Sidebar Dynamic Control -->
+      <aside class="ece-sidebar">
+        <div class="ece-filter-group">
+          <h3 class="ece-filter-title">Brands</h3>
+          <div class="ece-filter-options">
+            <button class="ece-filter-chip ece-filter-chip--active" data-filter="all">All Brands</button>
+            <button class="ece-filter-chip" data-filter="apple">Apple</button>
+            <button class="ece-filter-chip" data-filter="samsung">Samsung</button>
+            <button class="ece-filter-chip" data-filter="accessories">Accessories</button>
+          </div>
+        </div>
+
+        <div class="ece-filter-group">
+          <h3 class="ece-filter-title">Availability</h3>
+          <label class="ece-checkbox-container">
+            <input type="checkbox" checked disabled>
+            <span class="ece-checkbox-label">In Stock Only (Ready to ship)</span>
+          </label>
+        </div>
+      </aside>
+
+      <!-- Store Products Display Grid -->
+      <section class="ece-catalog-pane">
+        <div class="ece-catalog-header">
+          <p class="ece-item-count"><span id="eceProductCount">4</span> premium models found</p>
+          <div class="ece-sort-wrapper">
+            <select class="ece-sort-select" aria-label="Sort catalog items">
+              <option>Sort by: Featured</option>
+              <option>Price: Low to High</option>
+              <option>Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="ece-products-grid" id="eceProductsGrid">
+          
+          <!-- Product item: iPhone 15 Pro -->
+          <article class="ece-product-card" data-brand="apple">
+            <div class="ece-card-media">
+              <span class="ece-card-badge ece-card-badge--blue">Best Seller</span>
+              <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=600&q=80" alt="iPhone flagship smartphone in natural titanium metallic look">
+            </div>
+            <div class="ece-card-body">
+              <span class="ece-card-category">Apple</span>
+              <h2 class="ece-card-title">iPhone Flagship Pro Max</h2>
+              <p class="ece-card-spec">Super Retina XDR • Pro Camera Array • A-Series Silicon</p>
+              <div class="ece-card-footer">
+                <span class="ece-card-price">$1,199.00</span>
+                <button class="ece-buy-button" onclick="eceAddToCart()">Add to Cart</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product item: Samsung Galaxy Ultra -->
+          <article class="ece-product-card" data-brand="samsung">
+            <div class="ece-card-media">
+              <span class="ece-card-badge">Top Rated</span>
+              <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=600&q=80" alt="Samsung Galaxy flagship smartphone setup highlighting dynamic AMOLED panel screen">
+            </div>
+            <div class="ece-card-body">
+              <span class="ece-card-category">Samsung</span>
+              <h2 class="ece-card-title">Galaxy Ultra Performance</h2>
+              <p class="ece-card-spec">Dynamic AMOLED 2X • Embedded S-Pen • 200MP Zoom System</p>
+              <div class="ece-card-footer">
+                <span class="ece-card-price">$1,299.00</span>
+                <button class="ece-buy-button" onclick="eceAddToCart()">Add to Cart</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product item: Wireless Studio Earbuds Pro -->
+          <article class="ece-product-card" data-brand="accessories">
+            <div class="ece-card-media">
+              <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80" alt="Premium noise cancelling wireless matte black charging case earbuds">
+            </div>
+            <div class="ece-card-body">
+              <span class="ece-card-category">Accessories</span>
+              <h2 class="ece-card-title">Studio Audio Buds Pro</h2>
+              <p class="ece-card-spec">Active Noise Cancellation • 36hr Battery • Spatial Sound tracking</p>
+              <div class="ece-card-footer">
+                <span class="ece-card-price">$249.00</span>
+                <button class="ece-buy-button" onclick="eceAddToCart()">Add to Cart</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product item: MagSafe Luxe Stand Case -->
+          <article class="ece-product-card" data-brand="accessories">
+            <div class="ece-card-media">
+              <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=600&q=80" alt="Premium phone protective minimalist leather texture charging accessories layout">
+            </div>
+            <div class="ece-card-body">
+              <span class="ece-card-category">Accessories</span>
+              <h2 class="ece-card-title">Luxe Magnetic Charging Stand</h2>
+              <p class="ece-card-spec">Premium Solid Anodized Aluminum • Dual 15W Qi fast-charging layout</p>
+              <div class="ece-card-footer">
+                <span class="ece-card-price">$89.00</span>
+                <button class="ece-buy-button" onclick="eceAddToCart()">Add to Cart</button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<style>
+/* Variable scopes mapping clear high-end styling structural guides */
+.ece-storefront {
+  --ece-accent: #0066cc;
+  --ece-accent-light: #e6f0fa;
+  --ece-accent-dark: #004d99;
+  --ece-dark: #111111;
+  --ece-text-muted: #666666;
+  --ece-bg-light: #f8f9fa;
+  --ece-border: #e5e5e5;
+  --ece-font: 'Circular Std', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  background-color: #ffffff;
+  color: var(--ece-dark);
+  font-family: var(--ece-font);
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+.ece-storefront *, 
+.ece-storefront *::before, 
+.ece-storefront *::after {
+  box-sizing: inherit;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+/* Announcement Utility Row */
+.ece-announcement {
+  background-color: var(--ece-dark);
+  color: #ffffff;
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.ece-announcement p { margin: 0; }
+
+/* Structural Grid & Layout Wrappers */
+.ece-nav-container, .ece-layout-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Premium Navbar Layout styling */
+.ece-navbar {
+  border-bottom: 1px solid var(--ece-border);
+  position: sticky;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+}
+
+.ece-nav-container {
+  display: flex;
+  height: 80px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ece-logo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--ece-dark);
+  text-decoration: none;
+}
+.ece-logo span {
+  color: var(--ece-accent);
+  font-weight: 400;
+  margin-left: 2px;
+}
+
+.ece-nav-menu {
+  display: flex;
+  gap: 36px;
+}
+
+.ece-nav-link {
+  text-decoration: none;
+  color: var(--ece-dark);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+.ece-nav-link:hover, .ece-nav-link--active {
+  color: var(--ece-accent);
+}
+
+.ece-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ece-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ece-dark);
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: color 0.2s ease;
+}
+.ece-icon-btn:hover { color: var(--ece-accent); }
+
+.ece-cart-btn .ece-cart-count {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: var(--ece-accent);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ece-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ece-dark);
+}
+
+/* Premium Product Hero Showcase Banner */
+.ece-hero {
+  position: relative;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--ece-dark);
+}
+
+.ece-hero-bg {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: 1;
+}
+.ece-hero-bg::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background: linear-gradient(90deg, rgba(17,17,17,0.9) 0%, rgba(17,17,17,0.4) 60%, rgba(17,17,17,0.1) 100%);
+}
+.ece-hero-bg img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+
+.ece-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 32px;
+  color: #ffffff;
+}
+
+.ece-hero-tag {
+  color: var(--ece-accent);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.ece-hero-title {
+  font-size: 3.25rem;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 20px 0;
+}
+
+.ece-hero-desc {
+  max-width: 500px;
+  color: #cccccc;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 0 0 36px 0;
+}
+
+.ece-hero-cta {
+  display: flex;
+  gap: 16px;
+}
+
+/* Layout Store Columns Grid setup */
+.ece-main-layout {
+  padding: 64px 0;
+  background-color: #ffffff;
+}
+
+.ece-layout-container {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* Filter Controls Menu Pane */
+.ece-sidebar {
+  position: sticky;
+  top: 120px;
+}
+
+.ece-filter-group {
+  margin-bottom: 36px;
+  border-bottom: 1px solid var(--ece-border);
+  padding-bottom: 24px;
+}
+.ece-filter-group:last-child {
+  border-bottom: none;
+}
+
+.ece-filter-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+}
+
+.ece-filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ece-filter-chip {
+  background: none;
+  border: 1px solid var(--ece-border);
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--ece-dark);
+  transition: all 0.2s ease;
+}
+.ece-filter-chip:hover {
+  border-color: var(--ece-dark);
+}
+.ece-filter-chip--active {
+  background-color: var(--ece-accent-light);
+  border-color: var(--ece-accent);
+  color: var(--ece-accent);
+}
+
+.ece-checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.ece-checkbox-container input {
+  width: 16px; height: 16px;
+  accent-color: var(--ece-accent);
+}
+
+/* Catalog View Controller Headers */
+.ece-catalog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--ece-border);
+  padding-bottom: 16px;
+}
+
+.ece-item-count {
+  font-size: 0.95rem;
+  color: var(--ece-text-muted);
+  margin: 0;
+}
+.ece-item-count span {
+  font-weight: 700;
+  color: var(--ece-dark);
+}
+
+.ece-sort-select {
+  border: 1px solid var(--ece-border);
+  background-color: #ffffff;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 6px;
+  outline: none;
+}
+
+/* Core Display Product Grid Framework */
+.ece-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 32px 24px;
+}
+
+.ece-product-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+.ece-product-card:hover {
+  transform: translateY(-4px);
+}
+
+.ece-card-media {
+  position: relative;
+  background-color: var(--ece-bg-light);
+  aspect-ratio: 4 / 4;
+  overflow: hidden;
+}
+.ece-card-media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.ece-product-card:hover .ece-card-media img {
+  transform: scale(1.03);
+}
+
+.ece-card-badge {
+  position: absolute;
+  top: 12px; left: 12px;
+  background-color: var(--ece-dark);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  z-index: 2;
+}
+.ece-card-badge--blue {
+  background-color: var(--ece-accent);
+}
+
+.ece-card-body {
+  padding: 20px 4px 12px 4px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.ece-card-category {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--ece-text-muted);
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.ece-card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  line-height: 1.3;
+}
+
+.ece-card-spec {
+  font-size: 0.85rem;
+  color: var(--ece-text-muted);
+  margin: 0 0 20px 0;
+  line-height: 1.4;
+}
+
+.ece-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.ece-card-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* Premium Button Component Ecosystem styles */
+.ece-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.ece-btn--primary {
+  background-color: var(--ece-accent);
+  color: #ffffff;
+}
+.ece-btn--primary:hover {
+  background-color: var(--ece-accent-dark);
+}
+
+.ece-btn--secondary {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.ece-btn--secondary:hover {
+  border-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.ece-buy-button {
+  background-color: var(--ece-dark);
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.ece-buy-button:hover {
+  background-color: var(--ece-accent);
+}
+
+/* Mobile & Tablet Responsive View Engine Breakpoints */
+@media (max-width: 1024px) {
+  .ece-layout-container {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .ece-sidebar {
+    position: relative;
+    top: 0;
+  }
+  .ece-filter-options {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .ece-filter-group {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ece-nav-container, .ece-layout-container, .ece-hero-content {
+    padding: 0 20px;
+  }
+  .ece-nav-menu {
+    display: none; /* Controlled interactively by JS below */
+  }
+  .ece-menu-toggle {
+    display: block;
+  }
+  .ece-hero {
+    height: 460px;
+  }
+  .ece-hero-title {
+    font-size: 2.25rem;
+  }
+  .ece-products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px 16px;
+  }
+}
+</style>
+
+<script>
+// Highly Budgeted Client Logic Interface (Vanilla JS Component Architecture)
+document.addEventListener('DOMContentLoaded', () => {
+  const chips = document.querySelectorAll('.ece-filter-chip');
+  const products = document.querySelectorAll('.ece-product-card');
+  const countDisplay = document.getElementById('eceProductCount');
+  
+  // High-performance live layout sorting mechanism
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      // Toggle active states safely
+      document.querySelector('.ece-filter-chip--active')?.classList.remove('ece-filter-chip--active');
+      chip.classList.add('ece-filter-chip--active');
+      
+      const filterValue = chip.getAttribute('data-filter');
+      let visibleCount = 0;
+
+      products.forEach(product => {
+        const productBrand = product.getAttribute('data-brand');
+        if (filterValue === 'all' || productBrand === filterValue) {
+          product.style.display = 'flex';
+          visibleCount++;
+        } else {
+          product.style.display = 'none';
+        }
+      });
+      
+      // Live layout feedback counter update
+      if(countDisplay) countDisplay.textContent = visibleCount;
+    });
+  });
+
+  // Mobile navigation tray controller
+  const menuToggle = document.getElementById('eceMenuToggle');
+  const navMenu = document.getElementById('eceNavMenu');
+  
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener('click', () => {
+      const isVisible = navMenu.style.display === 'flex';
+      navMenu.style.display = isVisible ? 'none' : 'flex';
+      if(!isVisible) {
+        navMenu.style.setAttribute('style', 'display: flex; position: absolute; top: 80px; left: 0; right: 0; background: #ffffff; flex-direction: column; padding: 24px; gap: 16px; border-bottom: 1px solid var(--ece-border);');
+      } else {
+        navMenu.removeAttribute('style');
+      }
+    });
+  }
+});
+
+// Stateless instant reactive cart update demo triggers
+let totalCartItems = 0;
+function eceAddToCart() {
+  totalCartItems++;
+  const counters = document.querySelectorAll('.ece-cart-count');
+  counters.forEach(counter => {
+    counter.textContent = totalCartItems;
+    // Animate badge counter pulse natively
+    counter.style.transform = 'scale(1.2)';
+    setTimeout(() => counter.style.transform = 'scale(1)', 150);
+  });
+}
+</script>

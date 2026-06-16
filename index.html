@@ -80,18 +80,21 @@
             text-decoration: none;
             white-space: nowrap;
             z-index: 1002;
+            margin-right: 1.5rem; /* Pushes list right next to logo edge */
         }
 
         .logo span {
             color: var(--accent);
         }
 
+        /* Single Source List Wrapper: Aligned Left on Desktop */
         .nav-links {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
             list-style: none;
             height: 100%;
             align-items: center;
+            flex-grow: 1; /* Absorbs center space pushing static items right */
         }
 
         .nav-item {
@@ -100,12 +103,17 @@
             align-items: center;
         }
 
+        /* Explicit alignment orders for desktop mode layout positioning */
+        /* action-contact initiates the margin-left: auto bump to push both actions over to the right side seamlessly */
+        .nav-item.action-contact { order: 98; margin-left: auto; }
+        .nav-item.action-apply { order: 99; }
+
         .nav-link {
             color: var(--text-primary);
             text-decoration: none;
             font-size: 1rem;
             font-weight: 400;
-            padding: 0 1.5rem;
+            padding: 0 1.2rem;
             height: 100%;
             display: flex;
             align-items: center;
@@ -120,8 +128,8 @@
             content: '';
             position: absolute;
             bottom: 0; /* Aligns perfectly right over the border bottom */
-            left: 1.5rem;
-            width: calc(100% - 3rem);
+            left: 1.2rem;
+            width: calc(100% - 2.4rem);
             height: 2px;
             background: var(--accent);
             transform: scaleX(0);
@@ -137,6 +145,45 @@
         .nav-item:hover .nav-link::after {
             transform: scaleX(1);
             transform-origin: left;
+        }
+
+        /* Desktop specific styles for Contact Us Pill (Blue) */
+        .nav-item.action-contact .nav-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 11px 20px;
+            background: var(--accent);
+            color: var(--bg-secondary);
+            font-size: 1rem;
+            font-weight: 400; 
+            border-radius: 60px;
+            border: 1px solid var(--accent);
+            height: auto;
+        }
+        .nav-item.action-contact .nav-link::after { display: none; }
+        .nav-item.action-contact:hover .nav-link {
+            background: transparent;
+            color: var(--accent);
+        }
+
+        /* Desktop specific styles for Application pill (Black) */
+        .nav-item.action-apply .nav-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 11px 20px;
+            background: var(--text-primary);
+            color: var(--bg-secondary);
+            font-size: 1rem;
+            font-weight: 400; 
+            border-radius: 60px;
+            border: 1px solid var(--text-primary);
+            height: auto;
+            margin-left: 0.5rem; /* Tiny buffer spacing between the two actions */
+        }
+        .nav-item.action-apply .nav-link::after { display: none; }
+        .nav-item.action-apply:hover .nav-link {
+            background: transparent;
+            color: var(--text-primary);
         }
 
         /* --- THE 100% FULL-BLEED DESKTOP MEGAMENU WRAPPER --- */
@@ -324,25 +371,6 @@
         .venture-item p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
         .venture-item:hover h4 { color: var(--accent); }
 
-        /* --- THE ACTION CTA BUTTON --- */
-        .btn-apply-nav {
-            display: inline-flex;
-            align-items: center;
-            padding: 11px 20px;
-            background: var(--text-primary);
-            color: var(--bg-secondary);
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 400; border-radius: 60px;
-            border: 1px solid var(--text-primary);
-            transition: var(--transition);
-            margin-left: 1rem;
-        }
-
-        .btn-apply-nav:hover {
-            background: transparent;
-            color: var(--text-primary);
-        }
 
         /* --- MOBILE TOGGLE BAR BUTTON --- */
         .menu-toggle {
@@ -378,7 +406,7 @@
             .megamenu-wrapper::before { display: none; }
 
             header {
-                background: #ffffff !important; /* Forces header background block to stay completely opaque on scroll */
+                background: #ffffff !important;
             }
 
             /* Absolute Solid-White Drawer Panel */
@@ -392,7 +420,7 @@
                 flex-direction: column;
                 align-items: flex-start;
                 justify-content: flex-start;
-                padding: 110px 0 4rem 0; 
+                padding: 70px 0 2rem 0; 
                 gap: 0;
                 transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
                 overflow-y: auto;
@@ -400,11 +428,19 @@
             }
 
             .nav-links.active { transform: translateX(100vw); }
-            .nav-item { width: 100%; height: auto; flex-direction: column; align-items: flex-start; }
+            
+            /* Enforce normal link display flow layout rules inside drawer stack */
+            .nav-item { 
+                width: 100%; 
+                height: auto; 
+                flex-direction: column; 
+                align-items: flex-start;
+                order: initial !important; /* Reset layout order overrides on mobile viewports */
+            }
             
             .nav-link { 
                 width: 100%; 
-                height: 75px; 
+                height: 65px; 
                 padding: 0 1.5rem; 
                 justify-content: space-between; 
                 font-size: 1rem; 
@@ -412,6 +448,72 @@
                 background: #ffffff; 
             }
             .nav-link::after { display: none; }
+
+            /* Accordion Indicator Content Signpost (+) Insertion logic */
+            .nav-item:not(.no-dropdown) > .nav-link::after {
+                display: block;
+                content: '+';
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                transform: none;
+                font-size: 1.3rem;
+                font-weight: 300;
+                color: var(--text-secondary);
+            }
+            .nav-item.mobile-open:not(.no-dropdown) > .nav-link::after {
+                content: '−';
+                color: var(--accent);
+            }
+
+            /* Structural re-routing of application action buttons layout execution for drawer bottoms */
+            .nav-item.action-contact {
+                order: 10 !important;
+                margin-top: auto; /* Attaches actions to the bottom line area safely */
+                padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+                width: 100%;
+                margin-left: 0;
+            }
+            .nav-item.action-apply {
+                order: 11 !important;
+                padding: 0 1.5rem 1rem 1.5rem;
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .nav-item.action-contact .nav-link {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 50px;
+                background: var(--accent);
+                color: var(--bg-secondary);
+                border-radius: 60px;
+                border: 1px solid var(--accent);
+            }
+            .nav-item.action-contact:hover .nav-link {
+                background: transparent;
+                color: var(--accent);
+            }
+
+            .nav-item.action-apply .nav-link {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 50px;
+                background: var(--text-primary);
+                color: var(--bg-secondary);
+                border-radius: 60px;
+                margin-left: 0;
+                border: 1px solid var(--text-primary);
+            }
+            .nav-item.action-apply:hover .nav-link {
+                background: transparent;
+                color: var(--text-primary);
+            }
 
             .megamenu-wrapper {
                 position: static;
@@ -430,7 +532,7 @@
 
             .mega-sidebar { 
                 padding: 2.5rem 1.5rem; 
-                background-color: #fafbfc; /* Keeps only mobile drawer sidebar colored correctly */
+                background-color: #fafbfc; 
                 border-right: none; 
                 border-bottom: 1px solid var(--border); 
             }
@@ -452,13 +554,6 @@
             .zone-column { padding: 2.5rem 0; border-right: none; border-bottom: 1px solid var(--border); }
             .zone-column:last-child { border-bottom: none; padding-right: 0; }
             .venture-item { margin-bottom: 2rem; }
-
-            .btn-apply-nav {
-                margin: 2rem 1.5rem 0 1.5rem;
-                width: calc(100% - 3rem);
-                justify-content: center;
-                height: 55px;
-            }
         }
     </style>
 </head>
@@ -467,7 +562,7 @@
     <header>
         <div class="layout-axis nav-container">
             <a href="#" class="logo">
-                <img src="images/education.jpg" style="height: 35px;"/>
+                <img src="images/loo.png" style="height: 35px;"/>
             </a>
             
             <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation">
@@ -604,8 +699,12 @@
                     </div>
                 </li>
 
-                <li>
-                    <a href="#" class="btn-apply-nav">Initiate Application</a>
+                <li class="nav-item no-dropdown action-contact">
+                    <a href="#" class="nav-link">Contact Us</a>
+                </li>
+
+                <li class="nav-item no-dropdown action-apply">
+                    <a href="#" class="nav-link">Initiate Application</a>
                 </li>
             </ul>
         </div>
@@ -632,7 +731,7 @@
         // Mobile Drill Down Click Management
         navItems.forEach(item => {
             const link = item.querySelector('.nav-link');
-            if(link) {
+            if(link && !item.classList.contains('no-dropdown')) {
                 link.addEventListener('click', (e) => {
                     if(window.innerWidth <= 992) {
                         e.preventDefault();
@@ -660,12 +759,6 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
 
 
 
@@ -823,12 +916,12 @@
 
         /* Master Typography Layout Settings */
         .hero-main-headline {
-            font-size: 3.8rem;
+            font-size: 3.5rem;
             font-weight: 400;
             line-height: 1.15;
             letter-spacing: -2px;
             color: #ffffff;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: -0.04em;
         }
 
         .hero-main-headline span {
@@ -1139,7 +1232,7 @@
             font-size: 3rem;
             font-weight: 500;
             color: var(--text-primary);
-            margin: 0.8rem 0 1rem 0; letter-spacing: -0.02em;
+            margin: 0.8rem 0 1rem 0; text-transform: uppercase; letter-spacing: -0.04em;
         }
 
         .services-lead-text {
@@ -1464,11 +1557,10 @@
         }
 
         .stack-main-title {
-            font-size: 2.8rem;
-            font-weight: 700;
-            letter-spacing: -1.5px;
+            font-size: 3rem;
+            font-weight: 500;
             color: var(--text-primary);
-            margin: 1rem 0 1.5rem 0;
+            margin: 1rem 0 1.5rem 0; text-transform: uppercase; letter-spacing: -0.04em;
         }
 
         .stack-lead {
@@ -1821,7 +1913,7 @@
             font-size: clamp(2.5rem, 4.5vw, 3rem);
             font-weight: 500;
             line-height: 1.05;
-            letter-spacing: -2px;
+            text-transform: uppercase; letter-spacing: -0.04em;
             color: var(--text-primary);
         }
 
@@ -2159,10 +2251,10 @@
 
         .experience-main-title {
             font-family: 'Circular Std', 'Georgia', serif; /* Editorial serif fallback setup */
-            font-size: clamp(2.2rem, 4vw, 3.5rem);
-            font-weight: 400;
+            font-size: clamp(2.2rem, 4vw, 3rem);
+            font-weight: 500;
             line-height: 1.2;
-            letter-spacing: -0.025em;
+            text-transform: uppercase; letter-spacing: -0.04em;
             color: var(--text-primary);
         }
 
