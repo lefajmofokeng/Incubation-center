@@ -1,0 +1,3293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maluti TVET Absolute Mobile Alignment Navigation</title>
+
+    <style>
+    @font-face { font-family:'Circular Std'; src:url('fonts/CircularStd-Book.woff2') format('woff2'),url('fonts/CircularStd-Book.woff') format('woff'); font-weight:400; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Circular Std'; src:url('fonts/CircularStd-BookItalic.woff2') format('woff2'),url('fonts/CircularStd-BookItalic.woff') format('woff'); font-weight:400; font-style:italic; font-display:swap; }
+    @font-face { font-family:'Circular Std'; src:url('fonts/CircularStd-Medium.woff2') format('woff2'),url('fonts/CircularStd-Medium.woff') format('woff'); font-weight:500; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Circular Std'; src:url('fonts/CircularStd-Bold.woff2') format('woff2'),url('fonts/CircularStd-Bold.woff') format('woff'); font-weight:600; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Circular Std'; src:url('fonts/CircularStd-Bold.woff2') format('woff2'),url('fonts/CircularStd-Bold.woff') format('woff'); font-weight:700; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Circular Std'; src:url('fonts/CircularStd-Black.woff2') format('woff2'),url('fonts/CircularStd-Black.woff') format('woff'); font-weight:800; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Circular Std'; src:url('fonts/CircularStd-Black.woff2') format('woff2'),url('fonts/CircularStd-Black.woff') format('woff'); font-weight:900; font-style:normal; font-display:swap; }
+    </style>
+    <style>
+
+        :root {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #0f1115;
+            --text-secondary: #606877;
+            --accent: #0052cc; /* Blueprint Blue */
+            --border: rgba(15, 17, 21, 0.08);
+            --font-sans: 'Circular Std', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            
+            /* Strict Structural Layout Tokens */
+            --site-max-width: 1300px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- THE LOGICAL ALIGNMENT ANCHOR (Strictly 1300px Max) --- */
+        .layout-axis {
+            width: 100%;
+            max-width: var(--site-max-width);
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* --- NAVIGATION HEADER BAR --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: #ffffff; /* Explicitly solid white to stop data bleed-through */
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 55px;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            text-decoration: none;
+            white-space: nowrap;
+            z-index: 1002;
+            margin-right: 1.5rem; /* Pushes list right next to logo edge */
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        /* Single Source List Wrapper: Aligned Left on Desktop */
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+            height: 100%;
+            align-items: center;
+            flex-grow: 1; /* Absorbs center space pushing static items right */
+        }
+
+        .nav-item {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Explicit alignment orders for desktop mode layout positioning */
+        /* action-contact initiates the margin-left: auto bump to push both actions over to the right side seamlessly */
+        .nav-item.action-contact { order: 98; margin-left: auto; }
+        .nav-item.action-apply { order: 99; }
+
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 400;
+            padding: 0 1.2rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Fixed Underline Hover Effect Execution Layer */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0; /* Aligns perfectly right over the border bottom */
+            left: 1.2rem;
+            width: calc(100% - 2.4rem);
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 3; /* Elevated to display over everything cleanly */
+        }
+
+        .nav-item:hover .nav-link {
+            color: var(--accent);
+        }
+
+        .nav-item:hover .nav-link::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Desktop specific styles for Contact Us Pill (Blue) */
+        .nav-item.action-contact .nav-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 11px 20px;
+            background: var(--accent);
+            color: var(--bg-secondary);
+            font-size: 1rem;
+            font-weight: 400; 
+            border-radius: 60px;
+            border: 1px solid var(--accent);
+            height: auto;
+        }
+        .nav-item.action-contact .nav-link::after { display: none; }
+        .nav-item.action-contact:hover .nav-link {
+            background: transparent;
+            color: var(--accent);
+        }
+
+        /* Desktop specific styles for Application pill (Black) */
+        .nav-item.action-apply .nav-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 11px 20px;
+            background: var(--text-primary);
+            color: var(--bg-secondary);
+            font-size: 1rem;
+            font-weight: 400; 
+            border-radius: 60px;
+            border: 1px solid var(--text-primary);
+            height: auto;
+            margin-left: 0.5rem; /* Tiny buffer spacing between the two actions */
+        }
+        .nav-item.action-apply .nav-link::after { display: none; }
+        .nav-item.action-apply:hover .nav-link {
+            background: transparent;
+            color: var(--text-primary);
+        }
+
+        /* --- THE 100% FULL-BLEED DESKTOP MEGAMENU WRAPPER --- */
+        .megamenu-wrapper {
+            position: fixed;
+            top: 55px; /* Sits completely flush with the header border */
+            left: 0;
+            width: 100vw; 
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.04);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        /* Isolated Dynamic Gray Background Logic for Desktop Sidebar Only */
+        .megamenu-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: calc(50vw - 650px + 250px); /* Aligns perfectly down the 1300px layout break gridline */
+            height: 100%;
+            background-color: #fafbfc;
+            z-index: 1;
+            border-right: 1px solid var(--border);
+        }
+
+        @media (max-width: 1340px) {
+            .megamenu-wrapper::before {
+                width: calc(250px + 2rem); /* Matches padded window boundaries gracefully when shifting scales */
+            }
+        }
+
+        .nav-item:hover .megamenu-wrapper {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* --- GRID EXECUTION ZONE --- */
+        .mega-interior-grid {
+            display: grid;
+            grid-template-columns: 250px 1fr; /* Rigid definition for sidebar allows columns to calculate spacing identically */
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Side Information Panel */
+        .mega-sidebar {
+            padding: 4rem 2rem 4rem 0; /* Trimmed right to line up cards flawlessly with the grid */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            background-color: transparent; /* Allows background canvas trick to shine through color isolated */
+        }
+
+        .mega-sidebar h3 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+        }
+
+        .mega-sidebar h3 span {
+            color: var(--accent);
+            display: block;
+            font-weight: 600;
+        }
+
+        .mega-sidebar .meta-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+        }
+
+        .mega-interactive-link {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .mega-interactive-link span {
+            margin-left: 6px;
+            transition: transform 0.3s ease;
+        }
+
+        /* --- SECTORS GRID (Mathematically Handled 1:1:1 Equality) --- */
+        .sectors-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Forces identical pixel widths across columns */
+            width: 100%;
+            background: var(--bg-secondary);
+        }
+
+        .sector-card {
+            padding: 4rem 2.5rem;
+            border-right: 1px solid var(--border);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            background: var(--bg-secondary);
+        }
+
+        .sector-card:last-child {
+            border-right: none;
+            padding-right: 0; /* Anchors right column exactly against the 1300px limit line */
+        }
+
+        .sector-img {
+            width: 100%;
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 2rem;
+            filter: grayscale(100%) contrast(1.05);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .img-digital { background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'); }
+        .img-agri { background-image: url('https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&w=600&q=80'); }
+        .img-artisan { background-image: url('https://images.unsplash.com/photo-1513828583835-c54179536b66?auto=format&fit=crop&w=600&q=80'); }
+
+        .sector-card h4 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .sector-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+        .sector-card:hover { background: #fafbfc; }
+        .sector-card:hover .sector-img { filter: grayscale(0%); transform: translateY(-4px); border-color: var(--accent); }
+        .sector-card:hover .mega-interactive-link span { transform: translateX(4px); }
+
+        /* --- INFRASTRUCTURE SPLIT --- */
+        .infra-split { 
+            display: grid; 
+            grid-template-columns: 1.2fr 1fr; 
+            background: var(--bg-secondary);
+        }
+        
+        .infra-featured { 
+            padding: 4rem 3rem; 
+            border-right: 1px solid var(--border); 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            background-color: var(--bg-secondary); 
+        }
+        
+        .infra-banner { width: 100%; height: 200px; background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center; border: 1px solid var(--border); margin-bottom: 2rem; }
+        .infra-featured h4 { font-size: 1.3rem; font-weight: 500; margin-bottom: 0.5rem; }
+        .infra-featured p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+        
+        .infra-list { display: flex; flex-direction: column; background: var(--bg-secondary); }
+        .infra-row { padding: 2rem 0 2rem 3rem; border-bottom: 1px solid var(--border); text-decoration: none; color: inherit; display: flex; justify-content: space-between; align-items: center; transition: var(--transition); }
+        .infra-row:last-child { border-bottom: none; }
+        .infra-row h5 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.2rem; }
+        .infra-row p { font-size: 0.8rem; color: var(--text-secondary); }
+        .infra-row:hover { background-color: var(--bg-primary); padding-left: 1rem; }
+
+        /* --- VENTURES DUAL-ZONE --- */
+        .ventures-zone { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            background: var(--bg-secondary);
+        }
+        
+        .zone-column { padding: 4rem 3rem; border-right: 1px solid var(--border); }
+        .zone-column:last-child { border-right: none; padding-right: 0; }
+        .zone-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 2.5rem; display: block; }
+        .venture-item { margin-bottom: 2.5rem; text-decoration: none; color: inherit; display: block; }
+        .venture-item h4 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.4rem; transition: var(--transition); }
+        .venture-item p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
+        .venture-item:hover h4 { color: var(--accent); }
+
+
+        /* --- MOBILE TOGGLE BAR BUTTON --- */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px;
+            z-index: 1002;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: var(--transition);
+            transform-origin: center;
+        }
+
+        /* --- SYSTEM RESPONSIVE CORE ENGINE --- */
+        @media (max-width: 992px) {
+            .layout-axis { padding: 0 1.5rem; }
+            .menu-toggle { display: flex; }
+            
+            .menu-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .menu-toggle.active span:nth-child(2) { opacity: 0; }
+            .menu-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+            /* Revert backdrop helper trick structures */
+            .megamenu-wrapper::before { display: none; }
+
+            header {
+                background: #ffffff !important;
+            }
+
+            /* Absolute Solid-White Drawer Panel */
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: -100vw;
+                width: 100vw; 
+                height: 100vh;
+                background: #ffffff !important; /* Eliminates bleed-through transparency entirely */
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding: 70px 0 2rem 0; 
+                gap: 0;
+                transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+                overflow-y: auto;
+                z-index: 1001;
+            }
+
+            .nav-links.active { transform: translateX(100vw); }
+            
+            /* Enforce normal link display flow layout rules inside drawer stack */
+            .nav-item { 
+                width: 100%; 
+                height: auto; 
+                flex-direction: column; 
+                align-items: flex-start;
+                order: initial !important; /* Reset layout order overrides on mobile viewports */
+            }
+            
+            .nav-link { 
+                width: 100%; 
+                height: 65px; 
+                padding: 0 1.5rem; 
+                justify-content: space-between; 
+                font-size: 1rem; 
+                border-bottom: 1px solid var(--border); 
+                background: #ffffff; 
+            }
+            .nav-link::after { display: none; }
+
+            /* Accordion Indicator Content Signpost (+) Insertion logic */
+            .nav-item:not(.no-dropdown) > .nav-link::after {
+                display: block;
+                content: '+';
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                transform: none;
+                font-size: 1.3rem;
+                font-weight: 300;
+                color: var(--text-secondary);
+            }
+            .nav-item.mobile-open:not(.no-dropdown) > .nav-link::after {
+                content: '−';
+                color: var(--accent);
+            }
+
+            /* Structural re-routing of application action buttons layout execution for drawer bottoms */
+            .nav-item.action-contact {
+                order: 10 !important;
+                margin-top: auto; /* Attaches actions to the bottom line area safely */
+                padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+                width: 100%;
+                margin-left: 0;
+            }
+            .nav-item.action-apply {
+                order: 11 !important;
+                padding: 0 1.5rem 1rem 1.5rem;
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .nav-item.action-contact .nav-link {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 50px;
+                background: var(--accent);
+                color: var(--bg-secondary);
+                border-radius: 60px;
+                border: 1px solid var(--accent);
+            }
+            .nav-item.action-contact:hover .nav-link {
+                background: transparent;
+                color: var(--accent);
+            }
+
+            .nav-item.action-apply .nav-link {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 50px;
+                background: var(--text-primary);
+                color: var(--bg-secondary);
+                border-radius: 60px;
+                margin-left: 0;
+                border: 1px solid var(--text-primary);
+            }
+            .nav-item.action-apply:hover .nav-link {
+                background: transparent;
+                color: var(--text-primary);
+            }
+
+            .megamenu-wrapper {
+                position: static;
+                width: 100%;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                border-bottom: none;
+                background: #ffffff;
+                display: none;
+            }
+
+            .nav-item.mobile-open .megamenu-wrapper { display: block; }
+            .mega-interior-grid { grid-template-columns: 1fr; padding: 0; }
+
+            .mega-sidebar { 
+                padding: 2.5rem 1.5rem; 
+                background-color: #fafbfc; 
+                border-right: none; 
+                border-bottom: 1px solid var(--border); 
+            }
+            
+            .sectors-grid, .infra-split, .ventures-zone { 
+                grid-template-columns: 1fr; 
+                padding: 0 1.5rem;
+                border-left: none;
+                background: #ffffff;
+            }
+
+            .sector-card { padding: 2.5rem 0; border-right: none; border-bottom: 1px solid var(--border); background: #ffffff; }
+            .sector-card:last-child { border-bottom: none; padding-right: 0; }
+            
+            .infra-featured { padding: 2.5rem 0; border-right: none; border-bottom: 1px solid var(--border); background: #ffffff; }
+            .infra-row { padding: 2rem 0; }
+            .infra-row:hover { padding-left: 0.5rem; }
+
+            .zone-column { padding: 2.5rem 0; border-right: none; border-bottom: 1px solid var(--border); }
+            .zone-column:last-child { border-bottom: none; padding-right: 0; }
+            .venture-item { margin-bottom: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="layout-axis nav-container">
+            <a href="#" class="logo">
+                <img src="images/loo.png" style="height: 35px;"/>
+            </a>
+            
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                
+                <li class="nav-item">
+                    <a class="nav-link">Sectors</a>
+                    <div class="megamenu-wrapper">
+                        <div class="layout-axis mega-interior-grid">
+                            <div class="mega-sidebar">
+                                <div>
+                                    <span class="meta-label">Matrix 01</span>
+                                    <h3 style="margin-top: 1rem;">Operational<span>Specializations</span></h3>
+                                </div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">Focused industrial tracks curated to scale localized structural knowledge.</p>
+                            </div>
+                            <div class="sectors-grid">
+                                <div class="sector-card">
+                                    <div class="sector-img img-digital"></div>
+                                    <h4>Digital Innovation</h4>
+                                    <p>Fostering advanced software design patterns, full stack system engineering, and clean web deployments.</p>
+                                    <a href="#" class="mega-interactive-link">Explore Specialization<span>→</span></a>
+                                </div>
+                                <div class="sector-card">
+                                    <div class="sector-img img-agri"></div>
+                                    <h4>Smart Agriculture</h4>
+                                    <p>Automated hydroponics, sustainable crop cycle tracking, and clean-tech physical solutions.</p>
+                                    <a href="#" class="mega-interactive-link">Explore Specialization<span>→</span></a>
+                                </div>
+                                <div class="sector-card">
+                                    <div class="sector-img img-artisan"></div>
+                                    <h4>Modern Artisanship</h4>
+                                    <p>High precision tooling, automotive framework analysis, and spatial fabrication systems.</p>
+                                    <a href="#" class="mega-interactive-link">Explore Specialization<span>→</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link">Infrastructure</a>
+                    <div class="megamenu-wrapper">
+                        <div class="layout-axis mega-interior-grid">
+                            <div class="mega-sidebar">
+                                <div>
+                                    <span class="meta-label">Matrix 02</span>
+                                    <h3 style="margin-top: 1rem;">Spatial<span>Assets & Labs</span></h3>
+                                </div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">Industrial machinery and specialized spaces built for rapid prototyping.</p>
+                            </div>
+                            <div class="infra-split">
+                                <div class="infra-featured">
+                                    <div>
+                                        <div class="infra-banner"></div>
+                                        <h4>The Flagship Core Facility</h4>
+                                        <p>Our centralized manufacturing environment optimized for hardware validation and computational architecture setups.</p>
+                                    </div>
+                                    <a href="#" class="mega-interactive-link">Tour Facility Layout<span>→</span></a>
+                                </div>
+                                <div class="infra-list">
+                                    <a href="#" class="infra-row">
+                                        <div>
+                                            <h5>Computational Suite</h5>
+                                            <p>High performance engineering arrays</p>
+                                        </div>
+                                        <span class="mega-interactive-link">View Suite<span>→</span></span>
+                                    </a>
+                                    <a href="#" class="infra-row">
+                                        <div>
+                                            <h5>Rapid Mechanical Bay</h5>
+                                            <p>CNC machinery and laser tooling setups</p>
+                                        </div>
+                                        <span class="mega-interactive-link">View Bay<span>→</span></span>
+                                    </a>
+                                    <a href="#" class="infra-row">
+                                        <div>
+                                            <h5>Agro-Testing Zones</h5>
+                                            <p>Climate controlled indoor execution pods</p>
+                                        </div>
+                                        <span class="mega-interactive-link">View Zones<span>→</span></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link">Ventures</a>
+                    <div class="megamenu-wrapper">
+                        <div class="layout-axis mega-interior-grid">
+                            <div class="mega-sidebar">
+                                <div>
+                                    <span class="meta-label">Matrix 03</span>
+                                    <h3 style="margin-top: 1rem;">Enterprise<span>Pipeline</span></h3>
+                                </div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">Tracking native spin-offs built within the Maluti TVET perimeter.</p>
+                            </div>
+                            <div class="ventures-zone">
+                                <div class="zone-column">
+                                    <span class="zone-title">Active Portfolio Tracks</span>
+                                    <div class="venture-item">
+                                        <h4>Native Tech Spin-offs</h4>
+                                        <p>Commercial-grade enterprise software suites currently clearing initial market vetting stages.</p>
+                                        <a href="#" class="mega-interactive-link" style="margin-top:0.5rem;">Track Progress<span>→</span></a>
+                                    </div>
+                                    <div class="venture-item">
+                                        <h4>Local Supply Integration</h4>
+                                        <p>Connecting community mechanical workshops with larger corporate procurement contracts.</p>
+                                        <a href="#" class="mega-interactive-link" style="margin-top:0.5rem;">Track Progress<span>→</span></a>
+                                    </div>
+                                </div>
+                                <div class="zone-column">
+                                    <span class="zone-title">Ecosystem Cooperations</span>
+                                    <div class="venture-item">
+                                        <h4>Corporate Procurement Link</h4>
+                                        <p>Direct avenues for blue-chip companies looking to source highly vetted local technical operations.</p>
+                                        <a href="#" class="mega-interactive-link" style="margin-top:0.5rem;">Read Parameters<span>→</span></a>
+                                    </div>
+                                    <div class="venture-item">
+                                        <h4>Venture Capital Channel</h4>
+                                        <p>A fast-track verification pathway exposing high-performing teams directly to active seed investments.</p>
+                                        <a href="#" class="mega-interactive-link" style="margin-top:0.5rem;">Read Parameters<span>→</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item no-dropdown action-contact">
+                    <a href="#" class="nav-link">Contact Us</a>
+                </li>
+
+                <li class="nav-item no-dropdown action-apply">
+                    <a href="#" class="nav-link">Initiate Application</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        // Main Drawer Toggle
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            
+            if (navLinks.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Mobile Drill Down Click Management
+        navItems.forEach(item => {
+            const link = item.querySelector('.nav-link');
+            if(link && !item.classList.contains('no-dropdown')) {
+                link.addEventListener('click', (e) => {
+                    if(window.innerWidth <= 992) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        navItems.forEach(sibling => {
+                            if(sibling !== item) sibling.classList.remove('mobile-open');
+                        });
+                        
+                        item.classList.toggle('mobile-open');
+                    }
+                });
+            }
+        });
+
+        // Viewport scale tracking resets inline modifiers safely
+        window.addEventListener('resize', () => {
+            if(window.innerWidth > 992) {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                navItems.forEach(item => item.classList.remove('mobile-open'));
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --- CINEMATIC 100% IMMERSIVE HERO WITH FLOATING NAVIGATION --- -->
+    <section class="hero-canvas">
+        
+        <!-- Absolute Background Matrix Layer (Spreads 100% Width & Height) -->
+        <div class="hero-image-backdrop"></div>
+        <div class="hero-overlay-shading"></div>
+
+        <!-- Foreground Structural Content Vector -->
+        <div class="layout-axis hero-content-alignment">
+            <div class="hero-text-engine">
+
+                <h1 class="hero-main-headline">
+                    Refine, build and engage
+                </h1>
+                
+                <p class="hero-paragraph-lead">
+                    Providing enterprise software engineering, localized infrastructure arrays, and strategic digital market scaling tailored for elite performance.
+                </p>
+
+                <div class="hero-actions-cluster">
+                    <a href="#ecosystem" class="hero-btn-primary">Explore Infrastructure</a>
+                    <a href="#pipeline" class="hero-btn-secondary">
+                        <span>View Pipeline</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Unified Component Stylesheet Styles -->
+    <style>
+        /* --- CORE IMMERSIVE HERO SYSTEM --- */
+        .hero-canvas {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Demands 100% full screen viewport spatial depth */
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background-color: #0f1115; /* Fallback baseline dark token */
+        }
+
+        /* Absolute Image Asset Layer Mapping (Takes up 100% space) */
+        .hero-image-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.pexels.com/photos/17485820/pexels-photo-17485820.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            z-index: 1;
+            transform: scale(1.02); /* Safeguards edge anti-aliasing during render passes */
+        }
+
+        /* Dual-Stage High-Contrast Shading Matrix over background image */
+        .hero-overlay-shading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to left,
+                rgba(15, 17, 21, 0.196) 20%,
+                rgba(15, 17, 21, 0.211) 50%,
+                rgba(15, 17, 21, 0.829) 100%
+            ),
+            linear-gradient(
+                to top,
+                rgba(15, 17, 21, 0) 0%,
+                rgba(15, 17, 21, 0) 40%
+            );
+            z-index: 2;
+        }
+
+        /* --- FOREGROUND CONTENT PLACEMENT --- */
+        .hero-content-alignment {
+            position: relative;
+            z-index: 3; /* Lifts content text layers over background image overlays */
+            width: 100%;
+            padding-top: 40px; /* Leaves clear breathing space for the floating nav header */
+        }
+
+        .hero-text-engine {
+            max-width: 720px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        /* Master Typography Layout Settings */
+        .hero-main-headline {
+            font-size: 3.5rem;
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -2px;
+            color: #ffffff;
+            margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: -0.04em;
+        }
+
+        .hero-main-headline span {
+            font-weight: 400;
+            color: #ffffff;
+        }
+
+        .hero-paragraph-lead {
+            font-size: 1.15rem;
+            line-height: 1.65;
+            color: #c5cbd3;
+            max-width: 580px;
+            margin-bottom: 3rem;
+        }
+
+        /* Navigation Interactive Call-to-Actions */
+        .hero-actions-cluster {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            color: #0f1115;
+            font-size: 0.95rem;
+            font-weight: 400;
+            padding: 1.1rem 2.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .hero-btn-primary:hover {
+            background-color: var(--accent);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .hero-btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            background: none;
+            border: none;
+            padding: 0.5rem 0;
+        }
+
+        .hero-btn-secondary svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-btn-secondary:hover {
+            color: var(--accent);
+        }
+
+        .hero-btn-secondary:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* --- IMMACULATE VIEWPORT RESPONSIVE RENDERING OVERRIDES --- */
+        @media (max-width: 992px) {
+            .hero-canvas {
+                min-height: auto;
+                height: 85vh; /* Tapers layout depth slightly on mobile screens */
+                padding: 4rem 0;
+            }
+
+            .hero-integrated-navbar {
+                padding: 1.5rem 0;
+            }
+
+            .nav-links-track {
+                display: none; /* Can be hooked up to a responsive mobile menu slider drawer later if needed */
+            }
+
+            .hero-overlay-shading {
+                background: linear-gradient(
+                    to top,
+                    rgba(15, 17, 21, 0.95) 40%,
+                    rgba(15, 17, 21, 0.6) 100%
+                );
+            }
+
+            .hero-content-alignment {
+                padding-top: 80px;
+            }
+
+            .hero-main-headline {
+                font-size: 2.8rem;
+                letter-spacing: -1.2px;
+            }
+
+            .hero-paragraph-lead {
+                font-size: 1rem;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-canvas {
+                height: 90vh; /* Restores screen focus on sharp portrait windows */
+            }
+
+            .hero-main-headline {
+                font-size: 2.3rem;
+                line-height: 1.2;
+            }
+
+            .hero-actions-cluster {
+                flex-direction: column;
+                align-items: stretch;
+                width: 100%;
+                gap: 1.2rem;
+            }
+
+            .hero-btn-primary {
+                width: 100%;
+                padding: 1rem;
+            }
+
+            .hero-btn-secondary {
+                justify-content: center;
+                width: 100%;
+            }
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --- THE RE-ENGINEERED "WHAT WE DO" SERVICE SECTION --- -->
+    <section class="what-we-do-block">
+        <div class="layout-axis">
+            
+            <!-- Left-Aligned Section Header sitting cleanly above the cards -->
+            <div class="services-master-header">
+                <span class="meta-label">Core Specializations</span>
+                <h2 class="services-main-title">These are the things we do</h2>
+                <p class="services-lead-text">
+                    We combine high-end minimalist design with strict engineering practices to deliver performant digital environments.
+                </p>
+            </div>
+
+            <!-- Two-Column Interactive Service Grid Canvas (4 Cards Total) -->
+            <div class="services-two-column-grid">
+                
+                <!-- Card 01: Web Applications -->
+                <div class="service-reveal-card">
+                    <div class="service-card-media media-web-apps"></div>
+                    <div class="service-card-overlay-shading"></div>
+                    
+                    <div class="service-interactive-content">
+                        <h3 class="service-card-title">Web Applications</h3>
+                        <div class="service-hover-hidden-payload">
+                            <p class="service-card-description">
+                                Engineering elite, ultra-performant web applications using clean, scalable vanilla structures focused heavily on mobile-first responsiveness.
+                            </p>
+                            <a href="#" class="service-action-link">
+                                <span>Explore service</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 02: Infrastructure Systems -->
+                <div class="service-reveal-card">
+                    <div class="service-card-media media-infrastructure"></div>
+                    <div class="service-card-overlay-shading"></div>
+                    
+                    <div class="service-interactive-content">
+                        <h3 class="service-card-title">Infrastructure Stacks</h3>
+                        <div class="service-hover-hidden-payload">
+                            <p class="service-card-description">
+                                Architecting local server configurations, private network clouds, and database staging matrices designed to keep system throughput lightning fast.
+                            </p>
+                            <a href="#" class="service-action-link">
+                                <span>Explore service</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 03: Digital Marketing -->
+                <div class="service-reveal-card">
+                    <div class="service-card-media media-marketing"></div>
+                    <div class="service-card-overlay-shading"></div>
+                    
+                    <div class="service-interactive-content">
+                        <h3 class="service-card-title">Digital Marketing</h3>
+                        <div class="service-hover-hidden-payload">
+                            <p class="service-card-description">
+                                Deploying data-driven growth marketing, technical identity architecture, and targeted optimization structures to establish absolute digital presence.
+                            </p>
+                            <a href="#" class="service-action-link">
+                                <span>Explore service</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 04: Ecosystem Frameworks -->
+                <div class="service-reveal-card">
+                    <div class="service-card-media media-ecosystems"></div>
+                    <div class="service-card-overlay-shading"></div>
+                    
+                    <div class="service-interactive-content">
+                        <h3 class="service-card-title">Ecosystem Boards</h3>
+                        <div class="service-hover-hidden-payload">
+                            <p class="service-card-description">
+                                Custom development of highly secure directory interfaces and verified job listings designed to protect regional ecosystems and clear administrative blockades.
+                            </p>
+                            <a href="#" class="service-action-link">
+                                <span>Explore service</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Append these styles inside your <style> tag in index.html -->
+    <style>
+        /* --- WHAT WE DO COMPONENT DESIGN TOKENS --- */
+        .what-we-do-block {
+            position: relative;
+            width: 100%;
+            background-color: var(--bg-primary); /* Matches your existing primary canvas background tokens */
+            padding: 8rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Top Left-Aligned Header Block */
+        .services-master-header {
+            max-width: 600px;
+            margin-bottom: 4rem;
+            text-align: left;
+        }
+
+        .services-main-title {
+            font-size: 3rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin: 0.8rem 0 1rem 0; text-transform: uppercase; letter-spacing: -0.04em;
+        }
+
+        .services-lead-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* --- TWO COLUMN MATRIX GRID CANVAS --- */
+        .services-two-column-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two columns layout requested */
+            gap: 2rem;
+            width: 100%;
+        }
+
+        /* --- CORE INTERACTIVE CARD ENGINE --- */
+        .service-reveal-card {
+            position: relative;
+            height: 440px; /* High-end professional portrait aspect depth framework */
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end; /* Keeps content naturally anchored to bottom */
+            padding: 3rem;
+            border: 1px solid var(--border);
+            background-color: #0f1115;
+            cursor: pointer;
+        }
+
+        /* Absolute Graphic Background Layer */
+        .service-card-media {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            transform: scale(1);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Premium Curation of Technical Imagery */
+        .media-web-apps { background-image: url('https://images.pexels.com/photos/23466441/pexels-photo-23466441.jpeg'); }
+        .media-infrastructure { background-image: url('https://images.pexels.com/photos/23466440/pexels-photo-23466440.jpeg'); }
+        .media-marketing { background-image: url('https://images.pexels.com/photos/17485871/pexels-photo-17485871.png'); }
+        .media-ecosystems { background-image: url('https://images.pexels.com/photos/18069239/pexels-photo-18069239.png'); }
+
+        /* Integrated Ambient Overlay Protection Mask */
+        .service-card-overlay-shading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to top,
+                rgba(15, 17, 21, 0.9) 0%,
+                rgba(15, 17, 21, 0.4) 60%,
+                rgba(15, 17, 21, 0.2) 100%
+            );
+            z-index: 2;
+            transition: background 0.4s ease;
+        }
+
+        /* Interactive Typography Container Wrapper */
+        .service-interactive-content {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(105px); /* Perfectly balances title over the card canvas initially */
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .service-card-title {
+            font-size: 2rem;
+            font-weight: 500;
+            
+            color: #ffffff; /* Remains brilliantly visible against dark shading overlays */
+            margin-bottom: 1.5rem;
+        }
+
+        /* Payload Grid Compartment (Hidden initially by slide and opacity masking) */
+        .service-hover-hidden-payload {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .service-card-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #c5cbd3;
+            margin-bottom: 2rem;
+            max-width: 90%;
+        }
+
+        /* Minimal Interactive CTA Vector Link */
+        .service-action-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .service-action-link svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* --- ACTIVE INTERACTIVE HOVER ACTIONS REVEAL SEQUENCES --- */
+        .service-reveal-card:hover .service-card-media {
+            transform: scale(1.06); /* Graceful deep zooming factor */
+        }
+
+        .service-reveal-card:hover .service-card-overlay-shading {
+            background: linear-gradient(
+                to top,
+                rgba(15, 17, 21, 0.95) 0%,
+                rgba(15, 17, 21, 0.75) 100%
+            ); /* Deepens canvas overlay to maintain high crisp typography readability on hover */
+        }
+
+        .service-reveal-card:hover .service-interactive-content {
+            transform: translateY(0); /* Smoothly pulls the text engine cleanly up */
+        }
+
+        .service-reveal-card:hover .service-hover-hidden-payload {
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0.1s; /* Delivers premium sequential entry flow timing */
+        }
+
+        .service-reveal-card:hover .service-action-link {
+            color: var(--accent); /* Switches icon/text accent color to signature brand active blue */
+        }
+
+        .service-reveal-card:hover .service-action-link svg {
+            transform: translateX(4px); /* Pushes arrow outward dynamically */
+        }
+
+        /* --- SYSTEM RESPONSIVE REFLOW OVERRIDES --- */
+        @media (max-width: 992px) {
+            .what-we-do-block {
+                padding: 5rem 0;
+            }
+
+            .services-main-title {
+                font-size: 2rem;
+            }
+
+            .services-two-column-grid {
+                grid-template-columns: 1fr; /* Drops from 2-columns down to a unified stack layout profile on smaller windows */
+                gap: 1.5rem;
+            }
+
+            .service-reveal-card {
+                height: 380px; /* Marginally down-scaled card depth limits for compact mobile displays */
+                padding: 2rem;
+            }
+
+            /* Automatically reveals data payloads on smaller screens to ensure premium touch accessibility without hovering */
+            .service-interactive-content {
+                transform: translateY(0);
+            }
+
+            .service-hover-hidden-payload {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .service-card-title {
+                font-size: 1.5rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .service-card-description {
+                margin-bottom: 1.5rem;
+                max-width: 100%;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --- THE CORE ECOSYSTEM PILLARS (STACKING CARDS) SECTION --- -->
+    <section class="stack-block">
+        <div class="layout-axis">
+            
+            <!-- Section Header Centered Alignment Layer -->
+            <div class="stack-header">
+                <span class="meta-label">Strategic Blueprint</span>
+                <h2 class="stack-main-title">Ecosystem Foundations</h2>
+                <p class="stack-lead">
+                    A deep dive into the modular technical pillars engineered to scale operations across the regional landscape.
+                </p>
+            </div>
+
+            <!-- Stacking Container Container Zone -->
+            <div class="stack-container">
+                
+                <!-- Card 01: Web Applications -->
+                <div class="stack-card-wrapper" style="--card-index: 1; --card-rotate: -0.5deg;">
+                    <div class="stack-card card-dark">
+                        <div class="card-interior-grid">
+                            <div class="card-info">
+                                <div class="card-badge">Module 01</div>
+                                <h3 class="card-title">Custom Web Applications & Architecture</h3>
+                                <p class="card-text">
+                                    Our software development framework strips out unnecessary third-party dependencies to build high-performance, vanilla-coded systems. We focus on lightweight logic, strict mobile responsiveness, and clean architecture optimized specifically for enterprise deployments.
+                                </p>
+                                <a href="#" class="card-action-btn btn-light-mode">Review Stack Tech →</a>
+                            </div>
+                            <div class="card-visual-panel visual-dev"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 02: Smart Agro-Tech -->
+                <div class="stack-card-wrapper" style="--card-index: 2; --card-rotate: 1deg;">
+                    <div class="stack-card card-accent-blue">
+                        <div class="card-interior-grid">
+                            <div class="card-info">
+                                <div class="card-badge">Module 02</div>
+                                <h3 class="card-title">Smart Agriculture & Automated Labs</h3>
+                                <p class="card-text">
+                                    We integrate physical automation tools into regional agricultural pipelines. By engineering localized hydroponic monitoring containers, climate-controlled testing zones, and custom IoT sensor nodes, we transition traditional farming into modern, data-driven production environments.
+                                </p>
+                                <a href="#" class="card-action-btn btn-light-mode">Explore Agri Labs →</a>
+                            </div>
+                            <div class="card-visual-panel visual-agri"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 03: Modern Artisanship -->
+                <div class="stack-card-wrapper" style="--card-index: 3; --card-rotate: -1deg;">
+                    <div class="stack-card card-gray-light">
+                        <div class="card-interior-grid">
+                            <div class="card-info">
+                                <div class="card-badge">Module 03</div>
+                                <h3 class="card-title">High-Precision Fabrication Bays</h3>
+                                <p class="card-text">
+                                    Our infrastructure links local artisans directly to commercial industrial procurement. Through shared access to high-tier machinery—including CNC routers, laser cutters, and spatial assembly tooling frameworks—we empower production lines to meet strict blueprint specs down to the millimeter.
+                                </p>
+                                <a href="#" class="card-action-btn btn-dark-mode">Verify Tool Specs →</a>
+                            </div>
+                            <div class="card-visual-panel visual-artisan"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Append these styles inside your <style> tag in index.html -->
+    <style>
+        /* --- STACKING ENGINE CORE HOOKS --- */
+        .stack-block {
+            position: relative;
+            width: 100%;
+            background-color: var(--bg-secondary);
+            padding: 8rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stack-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 5rem auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stack-main-title {
+            font-size: 3rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin: 1rem 0 1.5rem 0; text-transform: uppercase; letter-spacing: -0.04em;
+        }
+
+        .stack-lead {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* The Main Scroll Track Area */
+        .stack-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Sticky Wrapper Calculation Engine */
+        .stack-card-wrapper {
+            position: -webkit-sticky;
+            position: sticky;
+            /* Incremental top gap offsets each card so they stack layered cleanly beneath the header */
+            top: calc(95px + 1rem + (var(--card-index) * 25px)); 
+            width: 100%;
+            padding-bottom: 5rem; /* Generates natural scroll workspace depth to trigger the sticky overlap */
+            transform-origin: center top;
+        }
+
+        /* Absolute Base Layer Card Frame */
+        .stack-card {
+            width: 100%;
+            min-height: 460px;
+            border-radius: 15px; /* Perfectly matches the modern rounded corners in Screenshot 2026-06-16 140100.png */
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(15, 17, 21, 0.06);
+            transform: rotate(var(--card-rotate)); /* Emulates the visual angle style in Screenshot 2026-06-16 140116.png */
+            transition: var(--transition);
+        }
+
+        .card-interior-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            min-height: 460px;
+        }
+
+        .card-info {
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .card-badge {
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.4rem 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            line-height: 1.25;
+            letter-spacing: -0.5px;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Interactive Action Buttons Inside Stacks */
+        .card-action-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.9rem 2rem;
+            font-size: 1rem;
+            font-weight: 400; border-radius: 50px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        /* --- THE THREE PREMIUM COLOR PALETTE THEMES --- */
+        
+        /* Theme 01: Deep Onyx Minimalist (Ref: Screenshot 2026-06-16 140100.png) */
+        .card-dark {
+            background-color: #0f1115;
+            color: #ffffff;
+        }
+        .card-dark .card-badge { background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.8); }
+        .card-dark .card-text { color: #a3a9b6; }
+        .btn-light-mode { background: #ffffff; color: #0f1115; }
+        .btn-light-mode:hover { background: var(--accent); color: #ffffff; }
+
+        /* Theme 02: Blueprint Blue Accent (Ref: Color splash intent in Screenshot 2026-06-16 140116.png) */
+        .card-accent-blue {
+            background-color: var(--accent);
+            color: #ffffff;
+        }
+        .card-accent-blue .card-badge { background: rgba(255, 255, 255, 0.15); color: #ffffff; }
+        .card-accent-blue .card-text { color: rgba(255, 255, 255, 0.8); }
+
+        /* Theme 03: High-Contrast Premium Gray Alternate */
+        .card-gray-light {
+            background-color: #fafbfc;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        .card-gray-light .card-badge { background: var(--border); color: var(--text-primary); }
+        .card-gray-light .card-text { color: var(--text-secondary); }
+        .btn-dark-mode { background: #0f1115; color: #ffffff; }
+        .btn-dark-mode:hover { background: var(--accent); color: #ffffff; }
+
+        /* --- RIGHT SIDE VISUAL MEDIA LAYERS --- */
+        .card-visual-panel {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: var(--transition);
+        }
+
+        .stack-card:hover .card-visual-panel {
+            filter: grayscale(0%) contrast(1);
+        }
+
+        .visual-dev { background-image: url('https://images.unsplash.com/photo-1618477388954-7852f32655ec?auto=format&fit=crop&w=800&q=80'); }
+        .visual-agri { background-image: url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80'); }
+        .visual-artisan { background-image: url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80'); }
+
+        /* --- STACKING ENGINE MOBILE ADJUSTMENT OVERRIDES --- */
+        @media (max-width: 992px) {
+            .stack-block {
+                padding: 5rem 0;
+            }
+
+            .stack-header {
+                text-align: left;
+                align-items: flex-start;
+                margin-bottom: 3.5rem;
+            }
+
+            .stack-main-title {
+                font-size: 2rem;
+                margin: 0.5rem 0 1rem 0;
+            }
+
+            .stack-card-wrapper {
+                /* Shifts layout variables closer together on small mobile screens to keep them tight */
+                top: calc(95px + 1.5rem + (var(--card-index) * 15px));
+                padding-bottom: 3.5rem;
+            }
+
+            .stack-card {
+                transform: none !important; /* Strips card rotation cleanly on smaller devices to maximize workspace alignment */
+                border-radius: 16px;
+            }
+
+            .card-interior-grid {
+                grid-template-columns: 1fr; /* Reflows side graphics beautifully below the typography copy block */
+            }
+
+            .card-info {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.4rem;
+                margin-bottom: 1rem;
+            }
+
+            .card-text {
+                font-size: 0.9rem;
+                margin-bottom: 2rem;
+            }
+
+            .card-action-btn {
+                width: 100%;
+                justify-content: center;
+                height: 50px;
+            }
+
+            .card-visual-panel {
+                height: 200px;
+            }
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --- THE FUTURE PROOFING ENTERPRISE SECTION --- -->
+    <section class="blueprint-block">
+        <div class="layout-axis">
+            
+            <!-- Dual-Zone Split Section Header -->
+            <div class="blueprint-header">
+                <h2 class="blueprint-title">
+                    Future Proofing<br>your Enterprise
+                </h2>
+                <div class="blueprint-intro">
+                    <p>We fuel bold ideas, driving them forward with sharp strategy and tailored technical pipelines.</p>
+                    <a href="#" class="btn-blueprint-action">
+                        Get Started <span>→</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- The Core Pillars 3-Column Grid -->
+            <div class="blueprint-grid">
+                
+                <!-- Card 01: Light Lime Accent (Ref: Screenshot 2026-06-16 140349.jpg) -->
+                <div class="blueprint-card card-lime">
+                    <div class="blueprint-card-icon">
+                        <!-- Abstract Vector Shape Pattern -->
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M2 6a4 4 0 014-4h4a4 4 0 014 4v4a4 4 0 01-4 4H6a4 4 0 01-4-4V6zM14 14a4 4 0 014-4h4a4 4 0 014 4v4a4 4 0 01-4 4h-4a4 4 0 01-4-4v-4zM2 18a4 4 0 014-4h4a4 4 0 014 4v4a4 4 0 01-4 4H6a4 4 0 01-4-4v-4zM14 6a4 4 0 014-4h4a4 4 0 014 4v4a4 4 0 01-4 4h-4a4 4 0 01-4-4V6z"/>
+                        </svg>
+                    </div>
+                    <div class="blueprint-card-content">
+                        <h3 class="card-heading">Momentum</h3>
+                        <p class="card-description">It signifies the irresistible force built up by consistent action and strategy, ensuring that every small victory propels your platform forward.</p>
+                    </div>
+                </div>
+
+                <!-- Card 02: Full-Bleed Photographic Canvas (Ref: Screenshot 2026-06-16 140349.jpg) -->
+                <div class="blueprint-card card-photo">
+                    <div class="card-photo-bg"></div>
+                    <div class="blueprint-card-icon text-white">
+                        <!-- Minimal Abstract Group Token -->
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16z"/>
+                            <circle cx="12" cy="12" r="4"/>
+                        </svg>
+                    </div>
+                    <div class="blueprint-card-content text-white">
+                        <h3 class="card-heading">Achieve</h3>
+                        <p class="card-description">Achieve means to successfully reach a goal or desired outcome through focused collective effort, precise code optimization, and persistent iteration.</p>
+                    </div>
+                </div>
+
+                <!-- Card 03: Soft Blue Architectural Slate (Ref: Screenshot 2026-06-16 140349.jpg) -->
+                <div class="blueprint-card card-slate-blue">
+                    <div class="blueprint-card-icon">
+                        <!-- Target/Strategy Vector Icon -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <circle cx="12" cy="12" r="6"></circle>
+                            <circle cx="12" cy="12" r="2"></circle>
+                        </svg>
+                    </div>
+                    <div class="blueprint-card-content">
+                        <h3 class="card-heading">Strategy</h3>
+                        <p class="card-description">Strategy is the intentional, long-term plan designed to allocate computational resources and guide direct actions toward achieving market disruption.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Append these styles inside your <style> tag in index.html -->
+    <style>
+        /* --- FUTURE PROOFING LAYOUT ARCHITECTURE TOKENS --- */
+        .blueprint-block {
+            position: relative;
+            width: 100%;
+            background-color: var(--bg-secondary);
+            padding: 8rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Dual-Zone Header Mechanics Grid Layout */
+        .blueprint-header {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 4rem;
+            align-items: flex-start;
+            margin-bottom: 5rem;
+        }
+
+        .blueprint-title {
+            font-size: clamp(2.5rem, 4.5vw, 3rem);
+            font-weight: 500;
+            line-height: 1.05;
+            text-transform: uppercase; letter-spacing: -0.04em;
+            color: var(--text-primary);
+        }
+
+        .blueprint-intro {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding-top: 10px; /* Aligns paragraph text to cap-height of title text block */
+        }
+
+        .blueprint-intro p {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            max-width: 380px;
+        }
+
+        /* Specialized Action Accent Button Layout */
+        .btn-blueprint-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.8rem 1.6rem;
+            background-color: #000000; /* Bright energetic lime tone from image */
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 400;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+
+        .btn-blueprint-action span {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-blueprint-action:hover {
+            background-color: var(--text-primary);
+            color: #ffffff;
+        }
+
+        .btn-blueprint-action:hover span {
+            transform: translateX(4px);
+        }
+
+        /* --- THE 3-COLUMN CARD SYSTEM CANVAS --- */
+        .blueprint-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .blueprint-card {
+            position: relative;
+            height: 520px;
+            border-radius: 28px; /* High-end organic curved boundary profile */
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        /* Vector Icon Workspace Dimensions */
+        .blueprint-card-icon {
+            width: 44px;
+            height: 44px;
+            color: #0f1115;
+        }
+
+        .blueprint-card-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .blueprint-card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 2;
+        }
+
+        .card-heading {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -1px;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        /* --- STYLING VARIANTS ENGINE --- */
+
+        /* Variant 01: Light Lime Canvas */
+        .card-lime {
+            background-color: #e2ff8a; /* Soft neon lime tone overlay */
+            color: #11141a;
+        }
+        .card-lime .card-description {
+            color: #384020;
+        }
+
+        /* Variant 02: Full Bleed Photographic Background */
+        .card-photo {
+            background-color: #0f1115;
+        }
+        
+        .card-photo-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) contrast(1.1) brightness(0.4); /* Stripping color coordinates to preserve elite contrast minimal look */
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .blueprint-card:hover .card-photo-bg {
+            filter: grayscale(0%) contrast(1) brightness(0.5);
+            transform: scale(1.03);
+        }
+
+        .text-white {
+            color: #ffffff !important;
+        }
+        .card-photo .card-description {
+            color: #cbd1db;
+        }
+
+        /* Variant 03: Soft Technical Blue Slate */
+        .card-slate-blue {
+            background-color: #e2eeff; /* Clean light layout grey-blue hue */
+            color: #0f1115;
+        }
+        .card-slate-blue .card-description {
+            color: #4b525d;
+        }
+
+        /* Card Scale Lift Mechanics on Hover */
+        .blueprint-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 30px 60px rgba(15, 17, 21, 0.08);
+        }
+
+        /* --- IMMACULATE GRID MOBILE HANDLING OVERRIDES --- */
+        @media (max-width: 992px) {
+            .blueprint-block {
+                padding: 5rem 0;
+            }
+
+            .blueprint-header {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                margin-bottom: 3.5rem;
+            }
+
+            .blueprint-intro {
+                padding-top: 0;
+            }
+
+            .blueprint-intro p {
+                max-width: 100%;
+            }
+
+            .blueprint-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .blueprint-card {
+                height: 440px;
+                padding: 2.5rem;
+                border-radius: 20px;
+            }
+
+            .card-heading {
+                font-size: 1.8rem;
+            }
+
+            .card-description {
+                font-size: 0.9rem;
+            }
+
+            .btn-blueprint-action {
+                width: 100%;
+                justify-content: center;
+                height: 50px;
+            }
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="experience-block">
+        <div class="layout-axis">
+            
+            <div class="experience-header">
+                <h2 class="experience-main-title">
+                    Incubation paths that <span>respect</span> your milestones and resources
+                </h2>
+            </div>
+
+            <div class="experience-grid">
+                
+                <div class="experience-card">
+                    <span class="card-meta-title">Hiring & Recruitment</span>
+                    <div class="card-media-wrapper">
+                        <div class="card-media-bg media-talent"></div>
+                    </div>
+                    <div class="card-reveal-footer">
+                        <p class="card-reveal-description">
+                            Clear cohort placement channels, structured technical vetting matrices, and developer experiences that respect incoming talent.
+                        </p>
+                        <a href="#" class="card-reveal-link">View service</a>
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <span class="card-meta-title">People Operations</span>
+                    <div class="card-media-wrapper">
+                        <div class="card-media-bg media-ops"></div>
+                    </div>
+                    <div class="card-reveal-footer">
+                        <p class="card-reveal-description">
+                            Simple, scalable venture workflows that support team acceleration without adding unnecessary administrative friction.
+                        </p>
+                        <a href="#" class="card-reveal-link">View service</a>
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <span class="card-meta-title">Culture & Values</span>
+                    <div class="card-media-wrapper">
+                        <div class="card-media-bg media-culture"></div>
+                    </div>
+                    <div class="card-reveal-footer">
+                        <p class="card-reveal-description">
+                            We help regional technical teams optimize how they collaborate, communicate, and make those operational principles visible.
+                        </p>
+                        <a href="#" class="card-reveal-link">View service</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <style>
+        /* --- INTERACTIVE SERVICES GRID SYSTEM TOKENS --- */
+        .experience-block {
+            position: relative;
+            width: 100%;
+            background-color: var(--bg-primary); /* Uses the alternate canvas color background */
+            padding: 8rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Distinct Serif Headline Styling Block */
+        .experience-header {
+            max-width: 800px;
+            margin-bottom: 5rem;
+        }
+
+        .experience-main-title {
+            font-family: 'Circular Std', 'Georgia', serif; /* Editorial serif fallback setup */
+            font-size: clamp(2.2rem, 4vw, 3rem);
+            font-weight: 500;
+            line-height: 1.2;
+            text-transform: uppercase; letter-spacing: -0.04em;
+            color: var(--text-primary);
+        }
+
+        /* --- THE THREE COLUMN HOVER REVEAL GRID FRAME --- */
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            width: 100%;
+            align-items: flex-start;
+        }
+
+        .experience-card {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Fixed Top Meta Content Label */
+        .card-meta-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        /* Media Canvas Element */
+        .card-media-wrapper {
+            position: relative;
+            width: 100%;
+            height: 480px; /* High-end portrait aspect baseline bounding box */
+            border-radius: 20px; /* Rounded corners from screenshot file */
+            overflow: hidden;
+            background-color: var(--border);
+        }
+
+        .card-media-bg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Warm, high-end content imagery curated for Maluti TVET operational tracks */
+        .media-talent { background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80'); }
+        .media-ops { background-image: url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=80'); }
+        .media-culture { background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80'); }
+
+        /* --- REVEAL INTERACTIVE ENGINE FOOTER --- */
+        .card-reveal-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding-top: 1.5rem;
+            width: 100%;
+        }
+
+        .card-reveal-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            /* Smooth transitions for a clean sliding fade effect */
+            opacity: 0.85;
+            transition: var(--transition);
+        }
+
+        .card-reveal-link {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 2px;
+            transition: var(--transition);
+        }
+
+        /* Solid Minimal Underline Layer Track */
+        .card-reveal-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1.5px;
+            background-color: var(--text-primary);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* --- ACTIVE INTERACTIVE ACTIONS --- */
+        .experience-card:hover .card-media-bg {
+            transform: scale(1.05); /* Smoothly zooms image inward on block hover */
+        }
+
+        .experience-card:hover .card-reveal-description {
+            color: var(--text-primary);
+            opacity: 1;
+        }
+
+        .experience-card:hover .card-reveal-link {
+            color: var(--accent);
+        }
+
+        .experience-card:hover .card-reveal-link::after {
+            background-color: var(--accent);
+            transform: scaleX(1);
+        }
+
+        /* --- RESPONSE VIEWPORT CONFIGURATIONS OVERRIDES --- */
+        @media (max-width: 992px) {
+            .experience-block {
+                padding: 5rem 0;
+            }
+
+            .experience-header {
+                margin-bottom: 3.5rem;
+            }
+
+            .experience-main-title {
+                font-size: 1.8rem;
+            }
+
+            .experience-grid {
+                grid-template-columns: 1fr; /* Responsively wraps into a clean vertical track layout */
+                gap: 3.5rem;
+            }
+
+            .card-media-wrapper {
+                height: 380px; /* Slightly lower aspect limits for mobile phone displays */
+                border-radius: 16px;
+            }
+            
+            .card-meta-title {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Section</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --color-primary: #FF5226; /* Brand Orange */
+            --color-text-dark: #111827;
+            --color-text-light: #6B7280;
+            --color-bg: #FFFFFF;
+            --color-border: #E5E7EB;
+            --font-family: 'Inter', sans-serif;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body-sv {
+            font-family: var(--font-family);
+            background-color: var(--color-bg);
+            color: var(--color-text-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 80px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- LAYOUT --- */
+        .faq-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeUp 0.6s ease-out;
+        }
+
+        .header__eyebrow {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--color-text-light);
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .header__title {
+            font-size: 3.5rem;
+            font-weight: 600;
+            line-height: 1.1;
+            color: var(--color-text-dark);
+            letter-spacing: -0.03em;
+        }
+
+        @media (max-width: 768px) {
+            .header__title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* --- ACCORDION --- */
+        .accordion {
+            width: 100%;
+            margin-bottom: 100px;
+            animation: fadeUp 0.8s ease-out;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .accordion-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 32px 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            group: all;
+        }
+
+        .accordion-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            padding-right: 24px;
+            transition: color 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .accordion-header:hover .accordion-title {
+            color: var(--color-primary);
+        }
+
+        .accordion-icon {
+            color: var(--color-primary);
+            font-size: 1.5rem;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+        }
+
+        /* Accordion Content */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+            opacity: 0;
+        }
+
+        .accordion-body {
+            padding-bottom: 32px;
+            color: var(--color-text-light);
+            line-height: 1.6;
+            font-size: 1rem;
+            max-width: 90%;
+        }
+
+        /* Active State */
+        .accordion-item.active .accordion-icon {
+            transform: rotate(45deg); /* Turns plus to X */
+        }
+
+        .accordion-item.active .accordion-content {
+            opacity: 1;
+        }
+
+        /* --- LOGO MARQUEE --- */
+        .logo-marquee-wrapper {
+            /* This acts as the viewport, constraining the marquee width */
+            width: 100%;
+            max-width: 900px; /* Same width as .faq-container */
+            overflow: hidden;
+            display: flex;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+            animation: fadeUp 1s ease-out;
+            white-space: nowrap; /* Ensure logos stay on one line */
+            margin-bottom: 100px;
+        }
+        
+        .logo-marquee-wrapper:hover {
+            opacity: 1;
+        }
+
+        .logo-track {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0; /* Prevents shrinking */
+            animation: marquee 30s linear infinite; /* Apply the continuous scroll */
+            /* This padding helps create a smooth transition gap before the duplicated track */
+            padding-right: 96px; 
+        }
+
+        .logo-track:hover {
+            animation-play-state: paused; /* Pause animation on hover */
+        }
+
+        .partner-logo {
+            height: 32px;
+            width: auto;
+            fill: var(--color-text-dark);
+            display: block;
+            margin: 0 48px; /* Spacing between individual logos */
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes marquee {
+            0% {
+                transform: translateX(0%);
+            }
+            100% {
+                /* Moves by the width of the first track plus its right padding */
+                transform: translateX(calc(-100% - 96px)); 
+            }
+        }
+
+    </style>
+    
+</head>
+<body-sv>
+
+    <div class="faq-container">
+        
+        <!-- Header -->
+        <header class="header">
+            <span class="header__eyebrow">FAQs</span>
+            <h1 class="header__title">
+                Got a question?<br>
+                We've got the answer
+            </h1>
+        </header>
+
+        <!-- Accordion List -->
+        <div class="accordion">
+            
+            <!-- Item 1 -->
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span class="accordion-title">How long does it take to design and launch a website with your team?</span>
+                    <i class="ph ph-plus accordion-icon"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        Typically, a standard website project takes between 4 to 8 weeks from kickoff to launch. This timeline can vary depending on the complexity of the design, the number of pages, and how quickly we receive content and feedback from your side.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span class="accordion-title">Do you offer ongoing support and maintenance after a project is completed?</span>
+                    <i class="ph ph-plus accordion-icon"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        Yes, absolutely. We believe in long-term partnerships. We offer various support packages that include security updates, content changes, and technical monitoring to ensure your site runs smoothly long after launch.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span class="accordion-title">Can Forma Studio help with branding and social media strategy?</span>
+                    <i class="ph ph-plus accordion-icon"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        We certainly can. While web design is our core, we have a dedicated branding team that can assist with logo design, brand guidelines, and social media assets to ensure a cohesive identity across all platforms.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span class="accordion-title">What is the typical process when working with Forma Studio on a new project?</span>
+                    <i class="ph ph-plus accordion-icon"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        Our process starts with a discovery phase to understand your goals. We then move to wireframing and design, followed by development and testing. Finally, we launch your site and provide training on how to manage your new content.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- LOGO GRID (Marquee Version) -->
+        <div class="logo-marquee-wrapper">
+            
+            <!-- Inner Track 1 (Logos repeated twice for seamless loop) -->
+            <div class="logo-track">
+                <!-- Logo 1: Abstract Dots -->
+                <svg class="partner-logo" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10,15a5,5,0,1,0,5,5A5,5,0,0,0,10,15Zm15,0a5,5,0,1,0,5,5A5,5,0,0,0,25,15Z" fill="#111827"/>
+                    <text x="45" y="22" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#111827">ipsum</text>
+                    <circle cx="40" cy="12" r="2" fill="#111827" opacity="0.4"/>
+                </svg>
+
+                <!-- Logo 2: Waves -->
+                <svg class="partner-logo" viewBox="0 0 140 30" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10,10c3,0,3,5,6,5s3-5,6-5,3,5,6,5,3-5,6-5" fill="none" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M10,18c3,0,3,5,6,5s3-5,6-5,3,5,6,5,3-5,6-5" fill="none" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
+                    <text x="45" y="22" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#111827">logoipsum</text>
+                </svg>
+
+                <!-- Logo 3: Globe -->
+                <svg class="partner-logo" viewBox="0 0 140 30" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="15" cy="15" r="10" fill="none" stroke="#111827" stroke-width="2"/>
+                    <line x1="5" y1="15" x2="25" y2="15" stroke="#111827" stroke-width="2"/>
+                    <line x1="15" y1="5" x2="15" y2="25" stroke="#111827" stroke-width="2"/>
+                    <text x="35" y="22" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#111827">logo</text>
+                    <text x="75" y="22" font-family="Inter, sans-serif" font-weight="400" font-size="16" fill="#111827">ipsum</text>
+                </svg>
+
+                <!-- Logo 4: Sun -->
+                <svg class="partner-logo" viewBox="0 0 140 30" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(15,15)">
+                        <circle r="5" fill="#111827"/>
+                        <line x1="0" y1="-9" x2="0" y2="-7" stroke="#111827" stroke-width="2"/>
+                        <line x1="0" y1="7" x2="0" y2="9" stroke="#111827" stroke-width="2"/>
+                        <line x1="-9" y1="0" x2="-7" y2="0" stroke="#111827" stroke-width="2"/>
+                        <line x1="7" y1="0" x2="9" y2="0" stroke="#111827" stroke-width="2"/>
+                        <line x1="-6" y1="-6" x2="-5" y2="-5" stroke="#111827" stroke-width="2"/>
+                        <line x1="5" y1="5" x2="6" y2="6" stroke="#111827" stroke-width="2"/>
+                    </g>
+                    <text x="35" y="22" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#111827">Logoipsum</text>
+                </svg>
+
+                <!-- Logo 5: Abstract D -->
+                <svg class="partner-logo" viewBox="0 0 40 30" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10,5h10a10,10,0,0,1,0,20h-10Z" fill="#D1D5DB"/>
+                    <path d="M10,5v20" stroke="#111827" stroke-width="2"/>
+                </svg>
+            </div>
+            
+            <!-- Inner Track 2 (Duplicate for seamless loop) -->
+            <div class="logo-track" aria-hidden="true">
+                <!-- Logo 1: Abstract Dots -->
+                <svg class="partner-logo" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10,15a5,5,0,1,0,5,5A5,5,0,0,0,10,15Zm15,0a5,5,0,1,0,5,5A5,5,0,0,0,25,15Z" fill="#111827"/>
+                    <text x="45" y="22" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#111827">ipsum</text>
+                    <circle cx="40" cy="12" r="2" fill="#111827" opacity="0.4"/>
+                </svg>
+
+                <!-- Logo 2: Waves -->
+                <svg class="partner-logo" viewBox="0 0 140 30" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10,10c3,0,3,5,6,5s3-5,6-5,3,5,6,5,3-5,6-5" fill="none" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M10,18c3,0,3,5,6,5s3-5,6-5,3,5,6,5,3-5,6-5" fill="none" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
+                    <text x="45" y="22" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#111827">logoipsum</text>
+                </svg>
+
+                <!-- Logo 3: Globe -->
+                <svg class="partner-logo" viewBox="0 0 140 30" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="15" cy="15" r="10" fill="none" stroke="#111827" stroke-width="2"/>
+                    <line x1="5" y1="15" x2="25" y2="15" stroke="#111827" stroke-width="2"/>
+                    <line x1="15" y1="5" x2="15" y2="25" stroke="#111827" stroke-width="2"/>
+                    <text x="35" y="22" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#111827">logo</text>
+                    <text x="75" y="22" font-family="Inter, sans-serif" font-weight="400" font-size="16" fill="#111827">ipsum</text>
+                </svg>
+
+                <!-- Logo 4: Sun -->
+                <svg class="partner-logo" viewBox="0 0 140 30" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(15,15)">
+                        <circle r="5" fill="#111827"/>
+                        <line x1="0" y1="-9" x2="0" y2="-7" stroke="#111827" stroke-width="2"/>
+                        <line x1="0" y1="7" x2="0" y2="9" stroke="#111827" stroke-width="2"/>
+                        <line x1="-9" y1="0" x2="-7" y2="0" stroke="#111827" stroke-width="2"/>
+                        <line x1="7" y1="0" x2="9" y2="0" stroke="#111827" stroke-width="2"/>
+                        <line x1="-6" y1="-6" x2="-5" y2="-5" stroke="#111827" stroke-width="2"/>
+                        <line x1="5" y1="5" x2="6" y2="6" stroke="#111827" stroke-width="2"/>
+                    </g>
+                    <text x="35" y="22" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#111827">Logoipsum</text>
+                </svg>
+
+                <!-- Logo 5: Abstract D -->
+                <svg class="partner-logo" viewBox="0 0 40 30" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10,5h10a10,10,0,0,1,0,20h-10Z" fill="#D1D5DB"/>
+                    <path d="M10,5v20" stroke="#111827" stroke-width="2"/>
+                </svg>
+            </div>
+        </div>
+
+
+    </div>
+
+   <script>
+    // --- ACCORDION LOGIC ---
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const content = item.querySelector('.accordion-content');
+                const isOpen = item.classList.contains('active');
+
+                // Close all other items (Optional - remove this block if you want multiple open)
+                document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.accordion-content').style.maxHeight = null;
+                        otherItem.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+                // Toggle current item
+                if (isOpen) {
+                    item.classList.remove('active');
+                    content.style.maxHeight = null;
+                    header.setAttribute('aria-expanded', 'false');
+                } else {
+                    item.classList.add('active');
+                    // Set max-height to scrollHeight for smooth animation
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    header.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+   </script>
+
+</body-sv>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --- THE HYBRID ACCORDION ENTERPRISE FOOTER --- -->
+    <footer class="site-footer">
+        <div class="layout-axis">
+            
+            <!-- Top Segment: Grid Navigation Directory -->
+            <div class="footer-directory-grid">
+                
+                <!-- Brand Anchor & Affiliations Column -->
+                <div class="footer-brand-column">
+                    <span class="footer-logo-text">Cronos<span>.</span></span>
+                    <p class="footer-brand-bio">
+                        Engineering premium, high-performance web applications and structural systems designed to scale operational horizons across the landscape.
+                    </p>
+                    
+                    <!-- New Dual Logo Institutional Endorsement Framework -->
+                    <div class="footer-endorsements-track">
+                        <span class="endorsement-label">Member Instance</span>
+                        <div class="endorsement-logos-flex">
+                            <!-- Logo Node 01 -->
+                            <div class="endorsement-logo-card">
+                                <svg viewBox="0 0 100 32" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 6h24M12 16h16M12 26h24" stroke-linecap="round"/>
+                                    <rect x="54" y="6" width="34" height="20" rx="3"/>
+                                </svg>
+                            </div>
+                            <!-- Logo Node 02 -->
+                            <div class="endorsement-logo-card">
+                                <svg viewBox="0 0 100 32" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="25" cy="16" r="10"/>
+                                    <circle cx="75" cy="16" r="10"/>
+                                    <path d="M35 16h30" stroke-dasharray="3 2"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 01: Hybrid Accordion Unit -->
+                <div class="footer-nav-group">
+                    <input type="checkbox" id="f-group-1" class="footer-accordion-toggle">
+                    <label for="f-group-1" class="footer-group-trigger">
+                        <h4 class="footer-group-title">Ecosystem</h4>
+                        <span class="footer-accordion-chevron"></span>
+                    </label>
+                    <div class="footer-links-panel">
+                        <ul class="footer-links-list">
+                            <li><a href="#">Web Applications</a></li>
+                            <li><a href="#">Agro-Tech Hubs</a></li>
+                            <li><a href="#">Artisanship Bays</a></li>
+                            <li><a href="#">Technical Stacks</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Column 02: Hybrid Accordion Unit -->
+                <div class="footer-nav-group">
+                    <input type="checkbox" id="f-group-2" class="footer-accordion-toggle">
+                    <label for="f-group-2" class="footer-group-trigger">
+                        <h4 class="footer-group-title">Incubation</h4>
+                        <span class="footer-accordion-chevron"></span>
+                    </label>
+                    <div class="footer-links-panel">
+                        <ul class="footer-links-list">
+                            <li><a href="#">Maluti TVET Pipeline</a></li>
+                            <li><a href="#">Vetting Boards</a></li>
+                            <li><a href="#">Operational Metrics</a></li>
+                            <li><a href="#">Venture Seed Grunts</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Column 03: Hybrid Accordion Unit -->
+                <div class="footer-nav-group">
+                    <input type="checkbox" id="f-group-3" class="footer-accordion-toggle">
+                    <label for="f-group-3" class="footer-group-trigger">
+                        <h4 class="footer-group-title">Alliances</h4>
+                        <span class="footer-accordion-chevron"></span>
+                    </label>
+                    <div class="footer-links-panel">
+                        <ul class="footer-links-list">
+                            <li><a href="#">Sentech Infrastructure</a></li>
+                            <li><a href="#">Standard Bank VC</a></li>
+                            <li><a href="#">Makhado Agro Labs</a></li>
+                            <li><a href="#">merSETA Frameworks</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- New Premium Structural Base Pod (White Background with 8px Borders) -->
+            <div class="footer-insulated-baseline">
+                <p class="footer-copyright">&copy; 2026 Cronos IT Services. All architectural assets secured.</p>
+                <div class="footer-legal-links">
+                    <a href="#">System Protocol</a>
+                    <a href="#">Data Manifest</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Append these styles inside your <style> tag in index.html -->
+    <style>
+        /* --- HYBRID ACCORDION FOOTER CORE MATRIX --- */
+        .site-footer {
+            background-color: #0f1115; /* Elite premium deep onyx backdrop */
+            color: #ffffff;
+            padding: 6rem 0 4rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Master Grid Structural Context */
+        .footer-directory-grid {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(3, 1fr);
+            gap: 4rem;
+            width: 100%;
+            margin-bottom: 5rem;
+        }
+
+        /* Brand Anchor Unit Layout */
+        .footer-brand-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .footer-logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: #ffffff;
+        }
+
+        .footer-logo-text span {
+            color: var(--accent); /* Brand highlight point token */
+        }
+
+        .footer-brand-bio {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #a3a9b6;
+            max-width: 280px;
+        }
+
+        /* Institutional Affiliation Badge Clusters */
+        .footer-endorsements-track {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .endorsement-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #6c7381;
+        }
+
+        .endorsement-logos-flex {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .endorsement-logo-card {
+            width: 84px;
+            height: 34px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            padding: 0.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a3a9b6;
+            transition: var(--transition);
+        }
+
+        .endorsement-logo-card svg {
+            max-height: 100%;
+            max-width: 100%;
+        }
+
+        .endorsement-logo-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Navigation Links List Track Mechanics */
+        .footer-nav-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Hidden by default on standard wide layout viewports */
+        .footer-accordion-toggle {
+            display: none;
+        }
+
+        .footer-group-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ffffff;
+        }
+
+        /* Reusable wrapper lists setup */
+        .footer-links-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-links-list a {
+            font-size: 0.95rem;
+            color: #a3a9b6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links-list a:hover {
+            color: #ffffff;
+        }
+
+        /* --- THE INSULATED WHITE LEGAL BASELINE POD --- */
+        .footer-insulated-baseline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background-color: #ffffff; /* Sharp white architectural block anchor */
+            padding: 1.8rem 2.5rem;
+            border-radius: 8px; /* Clean crisp exact curvature geometry */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer-copyright {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1a1e26; /* Deep charcoal typography for optimal reading contrast on white */
+        }
+
+        .footer-legal-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal-links a {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6c7381;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal-links a:hover {
+            color: var(--accent); /* Uses your core active trace color on active mouse states */
+        }
+
+        /* --- THE HYBRID SMART ACCORDION MOBILE CONVERSION ENGINE --- */
+        @media (max-width: 992px) {
+            .site-footer {
+                padding: 4rem 0 2rem 0;
+            }
+
+            .footer-directory-grid {
+                grid-template-columns: 1fr; /* Compresses everything into a single layout line */
+                gap: 0;
+                margin-bottom: 3rem;
+            }
+
+            .footer-brand-column {
+                padding-bottom: 3rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                margin-bottom: 1rem;
+            }
+
+            .footer-brand-bio {
+                max-width: 100%;
+            }
+
+            /* Transforms static headers into actionable touch targets */
+            .footer-nav-group {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                gap: 0;
+            }
+
+            .footer-group-trigger {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1.8rem 0;
+                cursor: pointer;
+                width: 100%;
+            }
+
+            .footer-group-title {
+                margin: 0;
+            }
+
+            /* Dynamic Minimal Cross/Plus Icon Token Graphic */
+            .footer-accordion-chevron {
+                position: relative;
+                width: 14px;
+                height: 14px;
+                display: block;
+            }
+
+            .footer-accordion-chevron::before,
+            .footer-accordion-chevron::after {
+                content: '';
+                position: absolute;
+                background-color: #ffffff;
+                transition: transform 0.3s ease;
+            }
+
+            .footer-accordion-chevron::before {
+                top: 6px;
+                left: 0;
+                width: 100%;
+                height: 2px;
+            }
+
+            .footer-accordion-chevron::after {
+                top: 0;
+                left: 6px;
+                width: 2px;
+                height: 100%;
+            }
+
+            /* Links Panel Box Clipping Setup */
+            .footer-links-panel {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .footer-links-list {
+                padding-bottom: 2rem;
+            }
+
+            /* Trigger Action Logic States when tapping headings */
+            .footer-accordion-toggle:checked ~ .footer-group-trigger .footer-accordion-chevron::after {
+                transform: rotate(90deg);
+                opacity: 0;
+            }
+            
+            .footer-accordion-toggle:checked ~ .footer-group-trigger .footer-accordion-chevron::before {
+                transform: rotate(180deg);
+            }
+
+            .footer-accordion-toggle:checked ~ .footer-links-panel {
+                max-height: 250px;
+            }
+
+            /* Insulated Base Panel Responsive Controls */
+            .footer-insulated-baseline {
+                flex-direction: column-reverse;
+                align-items: flex-start;
+                gap: 1.5rem;
+                padding: 2rem;
+            }
+        }
+    </style>
